@@ -12,18 +12,22 @@ echo "Operation,Data size, execution time" > $data_file
 
 make experiment  > /dev/null
 
-for mode in host aesni; do
-data_file="data/vary_data_$mode.csv"
-for operation in encrypt decrypt
+#for mode in host aesni; do
+for mode in host; do
+#data_file="data/vary_data_$mode.csv"
+data_file="data/cost.csv"
+#for operation in encrypt decrypt
+for operation in encrypt
 do
-	data_size=16
+	#data_size=16
+	data_size=$((1 << 35))
 	while [ $data_size -le $((1 << 35)) ]
 	do
 		repeats=10
 		#if [ $data_size -ge $((1 << 26)) ]; then
 		#	repeats=1
 		#fi
-		for i in {1..10}
+		for i in {1..1}
 		do
 			echo "Testing with $data_size bytes in $mode mode..."
 			./experiment/pimcrypto $mode $operation $data_size >> $data_file
