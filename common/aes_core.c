@@ -46,6 +46,10 @@
 #include "aes_local.h"
 #include <assert.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include "common.h"
+
+//#define FULL_UNROLL
 
 #ifndef AES_ASM
 /*-
@@ -687,6 +691,7 @@ inline void AES_encrypt(const unsigned char *in, unsigned char *out,
 #endif /* ?FULL_UNROLL */
 
   assert(in && out && key);
+  //printf("assert statement is done correctly\n");
   rk = key->rd_key;
 
   /*
@@ -698,6 +703,7 @@ inline void AES_encrypt(const unsigned char *in, unsigned char *out,
   s2 = GETU32(in + 8) ^ rk[2];
   s3 = GETU32(in + 12) ^ rk[3];
 #ifdef FULL_UNROLL
+
   /* round 1: */
   t0 = Te0[s0 >> 24] ^ Te1[(s1 >> 16) & 0xff] ^ Te2[(s2 >> 8) & 0xff] ^
        Te3[s3 & 0xff] ^ rk[4];
@@ -870,6 +876,7 @@ inline void AES_encrypt(const unsigned char *in, unsigned char *out,
        (Te0[(t1 >> 8) & 0xff] & 0x0000ff00) ^ (Te1[(t2)&0xff] & 0x000000ff) ^
        rk[3];
   PUTU32(out + 12, s3);
+  //printf("end of the function\n");
 }
 
 /*
