@@ -104,7 +104,7 @@ int host_AES_ecb_encrypt(void *in, void *out, unsigned long length,
                          const void *key_ptr) {
   AES_KEY key;
   AES_set_encrypt_key(key_ptr, AES_KEY_SIZE, &key);
-  //#pragma omp parallel for num_threads(64)
+  #pragma omp parallel for num_threads(64)
   for (unsigned long location = 0; location < length / 16; location++) {
     AES_encrypt(in + location * 16, out + location * 16, &key);
   }

@@ -172,10 +172,10 @@ int main(int argc, const char *argv[]) {
   int error = 0;
 
   switch (mode) {
-  case PIM_MODE:
-    error =
-        dpu_AES_ecb(buffer, buffer, test_data_size, key, operation, nr_of_dpus);
-    break;
+  //case PIM_MODE:
+  //  error =
+  //      dpu_AES_ecb(buffer, buffer, test_data_size, key, operation, nr_of_dpus);
+  //  break;
   case HOST_MODE:
     error = host_AES_ecb(buffer, buffer, test_data_size, key, operation);
     break;
